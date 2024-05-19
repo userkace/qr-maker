@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>qr.kace.dev</title>
+     <link href="./src/output.css" rel="stylesheet">
+     <script src="./src/script.js" defer></script>
+</head>
+<body class="text-center flex items-center justify-center bg-neutral-900">
+     <div class="p-5 m-5 w-max rounded-lg flex-col items-center justify-center bg-neutral-800 border border-neutral-700 shadow-2xl">
+          <h1 class="text-white font-bold">
+               qr.kace.dev
+          </h1>
+          <p class="text-gray-400 pb-5">enter your link</p>
+          <input id="color"
+          class="flex w-full mb-3 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border border-neutral-700 bg-neutral-800 text-gray-100" type="text" placeholder="color" value="f0f0f0">
+          <input id="bg" class="flex w-full mb-3 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border border-neutral-700 bg-neutral-800 text-gray-100" type="text" placeholder="background" value="262626">
+          <input id="inQR" class="rounded-lg p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100" type="text" placeholder="https://" value="user.kace.dev">
+          <button class="rounded-lg outline-1 p-2 hover:bg-green-400 hover:text-white border border-neutral-700 bg-orange-300 " onclick="genQR()">Generate</button>
+     <div id="divQR" class="pt-7 flex items-center justify-center">
+          <img id="outQR" src="https://api.qrserver.com/v1/create-qr-code/?size=285x285&data=user.kace.dev&bgcolor=262626&color=f0f0f0" alt="qr code generated">
+     </div>
+     </div>
+</body>
+</html>
+<!-- https://api.qrserver.com/v1/create-qr-code/?size=150x150&data= -->
