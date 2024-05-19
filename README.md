@@ -1,5 +1,5 @@
 
-# m.me maker
+# qr maker
 
 This project is a web application that enables users to create and share qr codes. 
 
