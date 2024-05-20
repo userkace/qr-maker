@@ -7,3 +7,4 @@ module.exports = {
   plugins: [],
 }
 
+/* npx tailwindcss -c ./tailwindcss-config.js -i input.css -o output.css */
