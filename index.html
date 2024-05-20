@@ -50,7 +50,7 @@
           </div>
 
           <!-- generate -->
-          <div class="flex gap-3">
+          <div id="gen" class="flex gap-3 hidden">
                <button
                     class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border border-neutral-700 bg-orange-300 "
                     onclick="genQR( {bg:bg.value, color:color.value} )">Generate<ion-icon name="add"
@@ -61,7 +61,7 @@
           </div>
 
           <!-- qr code -->
-          <div id="divQR" class="pt-7 w-56 mx-auto text-center flex items-center justify-center">
+          <div id="divQR" class="pt-7 w-56 mx-auto text-center flex items-center justify-center hidden">
                <img id="outQR" class="mx-auto"
                     src="https://api.qrserver.com/v1/create-qr-code/?size=1080x1080&data=user.kace.dev&bgcolor=262626&color=f0f0f0"
                     alt="qr code generated">

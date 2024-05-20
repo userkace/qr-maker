@@ -12,13 +12,14 @@ let inPass = document.getElementById("inPass");
 let inputLink = document.getElementById("inputLink");
 let inputWifi = document.getElementById("inputWifi");
 
+let gen = document.getElementById("gen")
 let outQR = document.getElementById("outQR");
 
 const defaultOptions = {
      size: '1080x1080',
      bg: '262626',
      color: 'f0f0f0',
-   };
+};
 
 
 // inputOpt.addEventListener('change', function() {
@@ -36,45 +37,52 @@ const defaultOptions = {
 inputOpt.addEventListener('change', (event) => {
      const selectedValue = event.target.value;
      toggleInputVisibility(selectedValue);
-   });
+});
 
 
 function toggleInputVisibility(selectedValue) {
      const inputElements = {
-       link: inputLink,
-       wifi: inputWifi,
+          gen: gen,
+          qr: divQR,
+          link: inputLink,
+          wifi: inputWifi,
      };
      // Hide all inputs by default
      for (const input of Object.values(inputElements)) {
-       input.classList.add('hidden');
+          input.classList.add('hidden');
      }
      // Show the selected input
      if (inputElements[selectedValue]) {
-       inputElements[selectedValue].classList.remove('hidden');
+          inputElements[selectedValue].classList.remove('hidden');
+          gen.classList.remove('hidden');
      } else {
-       // Handle cases where selectedValue doesn't match any option (optional)
-       console.warn("Invalid selected value. Please choose a valid input type.");
+          // Handle cases where selectedValue doesn't match any option (optional)
+          console.warn("Invalid selected value. Please choose a valid input type.");
      }
-   }
+}
 
 function genQR(options = {}) {
-  const qrOpt = {
-     size: options.size || defaultOptions.size,
-     bg: options.bg || defaultOptions.bg,
-     color: options.color || defaultOptions.color,
-   };
+     const qrOpt = {
+          size: options.size || defaultOptions.size,
+          bg: options.bg || defaultOptions.bg,
+          color: options.color || defaultOptions.color,
+     };
 
-   switch (inputOpt.value) {
-     case 'link':
-       outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inLink.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-       break;
-     case 'wifi':
-       outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=WIFI:S:${inSSID.value};T:WPA;P:${inPass.value};;&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-       break;
-     default:
-       // Handle cases where inputOpt.value doesn't match any option (optional)
-       console.warn("Invalid input option. Please choose a valid input type.");
-   }
+     switch (inputOpt.value) {
+          case 'link':
+               if (inLink.value !== '') {
+                    outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inLink.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
+                    divQR.classList.remove('hidden');
+                  } break;
+          case 'wifi':
+               if (inSSID.value !==  '' && inPass.value !== '') {
+               outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=WIFI:S:${inSSID.value};T:WPA;P:${inPass.value};;&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
+               divQR.classList.remove('hidden');
+               } break;
+          default:
+               // Handle cases where inputOpt.value doesn't match any option (optional)
+               console.warn("Invalid input option. Please choose a valid input type.");
+     }
 }
 
 function download(options = {}) {
@@ -84,38 +92,38 @@ function download(options = {}) {
           size: options.size || defaultOptions.size,
           bg: options.bg || defaultOptions.bg,
           color: options.color || defaultOptions.color,
-        };
+     };
 
      // Create a Blob object with the image data
      fetch(imageUrl)
-       .then(response => response.blob())
-       .then(blob => {
-         // Create a temporary URL for the downloaded image
-         const url = window.URL.createObjectURL(blob);
+          .then(response => response.blob())
+          .then(blob => {
+               // Create a temporary URL for the downloaded image
+               const url = window.URL.createObjectURL(blob);
 
-         // Create an anchor element (a link)
-         const link = document.createElement("a");
+               // Create an anchor element (a link)
+               const link = document.createElement("a");
 
-         // Set the href attribute to the temporary URL
-         link.href = url;
+               // Set the href attribute to the temporary URL
+               link.href = url;
 
-         // Set the download attribute to a desired filename
-         switch (inputOpt.value) {
-          case 'link':
-          link.download = inLink.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-          link.click();
-          break;
-          case 'wifi':
-          link.download = inSSID.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-          link.click();
-          break;
-          default:
-          console.warn('No generated QR code!')
-          break;
-         }
+               // Set the download attribute to a desired filename
+               switch (inputOpt.value) {
+                    case 'link':
+                         link.download = inLink.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
+                         link.click();
+                         break;
+                    case 'wifi':
+                         link.download = inSSID.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
+                         link.click();
+                         break;
+                    default:
+                         console.warn('No generated QR code!')
+                         break;
+               }
 
-         // Revoke the temporary URL after download
-         window.URL.revokeObjectURL(url);
-       })
-       .catch(error => console.error(error));
-   }
+               // Revoke the temporary URL after download
+               window.URL.revokeObjectURL(url);
+          })
+          .catch(error => console.error(error));
+}
