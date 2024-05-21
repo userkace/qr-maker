@@ -30,6 +30,7 @@
                <option value="">-</option>
                <option value="link">URL</option>
                <option value="wifi">Wifi</option>
+               <option value="mail">E-mail</option>
           </select>
 
           <!-- link input -->
@@ -49,9 +50,16 @@
                     type="text" placeholder="Password" value="" autocomplete="off">
           </div>
 
+          <!--email input-->
+          <div id="inputMail" class="hidden">
+               <input id="inMail"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    type="email" placeholder="E-mail" value="" autocomplete="off">
+          </div>
+
           <!-- generate -->
           <div id="gen" class="flex gap-3 hidden">
-               <button
+               <button id="submit"
                     class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border border-neutral-700 bg-orange-300 "
                     onclick="genQR( {bg:bg.value, color:color.value} )">Generate<ion-icon name="add"
                          class="ml-2 pt-1"></ion-icon></button>
@@ -61,9 +69,9 @@
           </div>
 
           <!-- qr code -->
-          <div id="divQR" class="pt-7 w-56 mx-auto text-center flex items-center justify-center hidden">
+          <div id="divQR" class="pt-7 mx-auto text-center flex items-center justify-center hidden" style="width:14.75rem;">
                <img id="outQR" class="mx-auto"
-                    src="https://api.qrserver.com/v1/create-qr-code/?size=1080x1080&data=user.kace.dev&bgcolor=262626&color=f0f0f0"
+                    src="./src/asset/478.gif"
                     alt="qr code generated">
           </div>
      </div>
