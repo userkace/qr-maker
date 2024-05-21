@@ -10,28 +10,32 @@
      <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
-<body class="text-center flex items-center justify-center bg-neutral-900">
+<body class="text-center flex flex-col flex-grow items-center bg-neutral-900 h-dvh">
      <div
           class="p-5 m-5 pt-3 rounded-lg flex-col items-center justify-center bg-neutral-800 border border-neutral-700 shadow-2xl">
-          <div class="flex items-start">
-          <img src="./src/asset/favicon.png" class="inline w-5 mr-2 mt-0.5">
-          <h1 class="inline mb-3 text-white font-bold">qr.kace.dev</h1>
-     </div>
-          <!-- <pill class="flex mb-4 rounded-lg w-8 h-1 bg-orange-300"></pill> -->
+          <div class="flex items-start min-w-full">
+               <div class="flex items-start flex-grow">
+                    <img src="./src/asset/favicon.png" class="inline w-5 mr-2 mt-0.5">
+                    <h1 class="inline mb-3 text-white font-bold">qr.kace.dev</h1>
+               </div>
+               <a href="https://github.com/userkace/qr-maker" class="w-5 mt-1"><ion-icon name="logo-github"
+                         class="inline text-white hover:text-orange-200 hover:cursor-pointer transition duration-200"></ion-icon></a>
+          </div>
+          <pill class="flex mb-4 rounded-lg h-1 bg-orange-300" style="width:14.75rem;"></pill>
 
           <!-- color options -->
           <div class="flex flex-row gap-3">
                <input id="color"
-                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
+                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
                     type="text" placeholder="color" value="" autocomplete="off" maxlength="6">
                <input id="bg"
-                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
+                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
                     type="text" placeholder="background" value="" autocomplete="off" maxlength="6">
           </div>
 
           <!-- input options -->
           <select id="inputOpt"
-               class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100">
+               class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100">
                <option value="">-</option>
                <option value="link">URL</option>
                <option value="wifi">Wifi</option>
@@ -41,49 +45,53 @@
           <!-- link input -->
           <div id="inputLink" class="hidden">
                <input id="inLink"
-                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
                     type="text/url" placeholder="https://" value="" autocomplete="off">
           </div>
 
           <!-- wifi input -->
           <div id="inputWifi" class="hidden">
                <input id="inSSID"
-                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
                     type="text" placeholder="SSID" value="" autocomplete="off">
                <input id="inPass"
-                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
                     type="text" placeholder="Password" value="" autocomplete="off">
           </div>
 
           <!--email input-->
           <div id="inputMail" class="hidden">
                <input id="inMail"
-                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
                     type="email" placeholder="E-mail" value="" autocomplete="off">
           </div>
 
           <!-- generate -->
           <div id="gen" class="flex gap-3 hidden">
                <button id="submit"
-                    class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border border-neutral-700 bg-orange-300 "
+                    class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border transition duration-200 border-neutral-700 bg-orange-300 "
                     onclick="genQR( {bg:bg.value, color:color.value} )">Generate<ion-icon name="add"
                          class="ml-2 pt-1"></ion-icon></button>
                <button
-                    class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border border-neutral-700 bg-neutral-700 text-gray-200"
-                    onclick="download( {bg:bg.value, color:color.value} )">Download<ion-icon name="arrow-down" class="ml-2 pt-1.5"></ion-icon></button>
+                    class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border transition duration-200 border-neutral-700 bg-neutral-700 text-gray-200"
+                    onclick="download( {bg:bg.value, color:color.value} )">Download<ion-icon name="arrow-down"
+                         class="ml-2 pt-1.5"></ion-icon></button>
           </div>
 
           <!-- qr code -->
-          <div id="divQR" class="pt-7 mx-auto text-center flex items-center justify-center hidden" style="width:14.75rem;">
-               <img id="outQR" class="mx-auto"
-                    src="./src/asset/478.gif"
-                    alt="qr code generated">
+          <div id="divQR" class="pt-7 mx-auto text-center flex items-center justify-center hidden"
+               style="width:14.75rem;">
+               <img id="outQR" class="mx-auto" src="./src/asset/478.gif" alt="qr code generated">
           </div>
      </div>
+
+     <footer class="p-3 m-5 mt-auto rounded-lg flex-col items-center justify-center bg-neutral-800 border border-neutral-700 shadow-2xl text-white">
+          Made with ❤️
+     </footer>
      <noscript>You need to enable JavaScript to run this app.</noscript>
+     <script src="./src/script.js" defer></script>
+     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
-<script src="./src/script.js" defer></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </html>
