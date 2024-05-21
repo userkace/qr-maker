@@ -11,6 +11,7 @@ This project is a web application that enables users to create and share qr code
 
 - Creates qr codes
 - Change qr code colors!
+- PWA-enabled
 - Works on mobile!
 
 ## technologies
