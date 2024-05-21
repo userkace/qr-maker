@@ -23,24 +23,24 @@
           </div>
           <pill class="flex mb-4 rounded-lg h-1 bg-orange-300" style="width:14.75rem;"></pill>
 
-          <!-- color options -->
-          <div class="flex flex-row gap-3">
-               <input id="color"
-                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
-                    type="text" placeholder="color" value="" autocomplete="off" maxlength="6">
-               <input id="bg"
-                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
-                    type="text" placeholder="background" value="" autocomplete="off" maxlength="6">
-          </div>
-
           <!-- input options -->
           <select id="inputOpt"
-               class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100">
+          class="flex w-full rounded-lg p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100">
                <option value="">-</option>
                <option value="link">URL</option>
                <option value="wifi">Wifi</option>
                <option value="mail">E-mail</option>
           </select>
+
+          <!-- color options -->
+          <div class="flex flex-row mt-3 gap-3">
+               <input id="color"
+                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
+                    type="text" placeholder="color" value=#F0F0F0 autocomplete="off" maxlength="7">
+               <input id="bg"
+                    class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
+                    type="text" placeholder="background" value=#262626 autocomplete="off" maxlength="7">
+          </div>
 
           <!-- link input -->
           <div id="inputLink" class="hidden">
@@ -62,7 +62,7 @@
           <!--email input-->
           <div id="inputMail" class="hidden">
                <input id="inMail"
-                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100 invalid:border-pink-500 invalid:text-pink-500"
                     type="email" placeholder="E-mail" value="" autocomplete="off">
           </div>
 
@@ -72,7 +72,7 @@
                     class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border transition duration-200 border-neutral-700 bg-orange-300 "
                     onclick="genQR( {bg:bg.value, color:color.value} )">Generate<ion-icon name="add"
                          class="ml-2 pt-1"></ion-icon></button>
-               <button
+               <button id="download"
                     class="flex w-28 rounded-lg outline-1 mt-3 p-2 hover:bg-green-400 hover:text-white border transition duration-200 border-neutral-700 bg-neutral-700 text-gray-200"
                     onclick="download( {bg:bg.value, color:color.value} )">Download<ion-icon name="arrow-down"
                          class="ml-2 pt-1.5"></ion-icon></button>
@@ -85,8 +85,10 @@
           </div>
      </div>
 
-     <footer class="p-3 m-5 mt-auto rounded-lg flex-col items-center justify-center bg-neutral-800 border border-neutral-700 shadow-2xl text-white">
-          Made with ❤️
+     <footer id="footer"
+          class="p-3 m-5 mt-auto rounded-lg flex-col items-center justify-center bg-neutral-800 border border-neutral-700 shadow-2xl text-white"
+          onclick="easterEgg()">
+          Made with 🧡
      </footer>
      <noscript>You need to enable JavaScript to run this app.</noscript>
      <script src="./src/script.js" defer></script>
