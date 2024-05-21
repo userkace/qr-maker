@@ -199,5 +199,10 @@ function download(options = {}) {
 }
 
 function easterEgg(){
+     const pill = document.getElementById("pill");
+     const logo = document.getElementById("logo");
+     logo.src = "./src/asset/favicon-p.png";
+     pill.style.backgroundColor = "rgb(249 168 212 / var(--tw-bg-opacity))";
+     submit.style.backgroundColor = "rgb(249 168 212 / var(--tw-bg-opacity))";
      footer.innerHTML = "Made with 🩷";
 }
