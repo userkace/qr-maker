@@ -1,0 +1,15 @@
+{
+     "short_name": "qr.kace",
+     "name": "qr.kace.dev",
+     "icons": [
+          {
+          "src": "./src/asset/favicon.png",
+          "type": "image/png",
+          "sizes": "512x512"
+          }
+     ],
+     "start_url": "./index.html",
+     "display": "standalone",
+     "background_color": "#000000",
+     "theme_color": "#fdba74"
+}

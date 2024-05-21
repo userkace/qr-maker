@@ -4,10 +4,22 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta name="darkreader-lock" />
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <meta name="description" content="QR code generator">
+     <meta name="darkreader-lock"/>
      <title>qr.kace.dev</title>
      <link href="./src/output.css" rel="stylesheet">
      <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+     <link rel="manifest" href="manifest.json">
+     <meta name="theme-color" content="#fdba74"/>
+
+     <script>
+          if('serviceWorker' in navigator){
+               navigator.serviceWorker.register('sw.js');
+          }
+     </script>
+
 </head>
 
 <body class="text-center flex flex-col flex-grow items-center bg-neutral-900 h-dvh">
