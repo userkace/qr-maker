@@ -4,7 +4,7 @@
 This project is a web application that enables users to create and share qr codes. 
 
 ```html
-  https://qr.kace.dev
+https://qr.kace.dev
 ```
 
 ## features
