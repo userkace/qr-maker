@@ -39,6 +39,7 @@
           <select id="inputOpt"
           class="flex w-full rounded-lg p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100">
                <option value="">-</option>
+               <option value="text">Text</option>
                <option value="link">URL</option>
                <option value="wifi">Wifi</option>
                <option value="mail">E-mail</option>
@@ -52,6 +53,13 @@
                <input id="bg"
                     class="flex w-28 rounded-lg p-2 focus:outline-none focus:bg-neutral-700 border transition duration-200 border-neutral-700 bg-neutral-800 text-gray-100 placeholder:lowercase uppercase"
                     type="text" placeholder="background" value=#262626 autocomplete="off" maxlength="7">
+          </div>
+
+          <!-- text input -->
+          <div id="inputText" class="hidden">
+               <input id="inText"
+                    class="flex w-full rounded-lg mt-3 p-2 focus:outline-none focus:bg-neutral-700 transition duration-200 bg-neutral-800 border border-neutral-700 text-gray-100"
+                    type="text" placeholder="Your message..." value="" autocomplete="off">
           </div>
 
           <!-- link input -->

@@ -5,11 +5,13 @@ const divQR = document.getElementById("divQR");
 let color = document.getElementById("color");
 let bg = document.getElementById("bg");
 
+let inText = document.getElementById("inText");
 let inLink = document.getElementById("inLink");
 let inSSID = document.getElementById("inSSID");
 let inPass = document.getElementById("inPass");
 let inMail = document.getElementById("inMail");
 
+const inputText = document.getElementById("inputText");
 const inputLink = document.getElementById("inputLink");
 const inputWifi = document.getElementById("inputWifi");
 const inputMail = document.getElementById("inputMail");
@@ -28,6 +30,7 @@ const defaultOptions = {
 };
 
 const inputFields = [
+     inText,
      inLink,
      inSSID,
      inPass,
@@ -74,6 +77,7 @@ function toggleInputVisibility(selectedValue) {
      const inputElements = {
           gen: gen,
           qr: divQR,
+          text: inputText,
           link: inputLink,
           wifi: inputWifi,
           mail: inputMail,
@@ -114,6 +118,12 @@ function genQR(options = {}) {
           return;
      } else if(hexRegex.test(qrOpt.color) || hexRegex.test(qrOpt.bg)){
           switch (inputOpt.value) {
+               case 'text':
+                    if (inText.value !== '') {
+                         outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inText.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
+                         divQR.classList.remove('hidden');
+                    }
+                    break;
                case 'link':
                     if (inLink.value !== '') {
                          outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inLink.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
