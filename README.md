@@ -14,6 +14,13 @@ https://qr.kace.dev
 - PWA-enabled
 - Works on mobile!
 
+## qr options
+
+- text
+- url
+- wifi
+- email
+
 ## technologies
 
 ![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
