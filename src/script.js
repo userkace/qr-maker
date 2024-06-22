@@ -181,6 +181,12 @@ function download(options = {}) {
 
                // Set the download attribute to a desired filename
                switch (inputOpt.value) {
+                    case 'text':
+                         if (inText.value !== '') {
+                              text.download = inText.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
+                              text.click();
+                         }
+                         break;
                     case 'link':
                          if (inLink.value !== '') {
                               link.download = inLink.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
