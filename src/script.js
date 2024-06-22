@@ -183,8 +183,8 @@ function download(options = {}) {
                switch (inputOpt.value) {
                     case 'text':
                          if (inText.value !== '') {
-                              text.download = inText.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-                              text.click();
+                              link.download = inText.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
+                              link.click();
                          }
                          break;
                     case 'link':
