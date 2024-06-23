@@ -111,39 +111,43 @@ function genQR(options = {}) {
 
 function dlQR(options = {}) {
      const imageUrl = elements.outQR.src;
-     const qrOpt = {
-          size: options.size || defaultOptions.size,
-          bg: cleanHexColor(options.bg || defaultOptions.bg),
-          color: cleanHexColor(options.color || defaultOptions.color)
-     };
+     if (imageUrl.includes('api.qrserver.com')) {
+          const qrOpt = {
+               size: options.size || defaultOptions.size,
+               bg: cleanHexColor(options.bg || defaultOptions.bg),
+               color: cleanHexColor(options.color || defaultOptions.color)
+          };
 
-     fetch(imageUrl)
-          .then(response => response.blob())
-          .then(blob => {
-               const url = window.URL.createObjectURL(blob);
-               const link = document.createElement("a");
-               link.href = url;
+          fetch(imageUrl)
+               .then(response => response.blob())
+               .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.href = url;
 
-               const fileNameMap = {
-                    text: elements.inText.value,
-                    link: elements.inLink.value,
-                    wifi: elements.inSSID.value,
-                    mail: elements.inMail.value
-               };
+                    const fileNameMap = {
+                         text: elements.inText.value,
+                         link: elements.inLink.value,
+                         wifi: elements.inSSID.value,
+                         mail: elements.inMail.value
+                    };
 
-               const inputType = elements.inputOpt.value;
-               const fileName = fileNameMap[inputType];
+                    const inputType = elements.inputOpt.value;
+                    const fileName = fileNameMap[inputType];
 
-               if (fileName) {
-                    link.download = `${fileName}_${qrOpt.color}_${qrOpt.bg}.png`;
-                    link.click();
-               } else {
-                    console.warn('No generated QR code!');
-               }
+                    if (fileName) {
+                         link.download = `${fileName}_${qrOpt.color}_${qrOpt.bg}.png`;
+                         link.click();
+                    } else {
+                         console.warn('No generated QR code!');
+                    }
 
-               window.URL.revokeObjectURL(url);
-          })
-          .catch(error => console.error(error));
+                    window.URL.revokeObjectURL(url);
+               })
+               .catch(error => console.error(error));
+     } else {
+          console.warn('No generated QR code!');
+     }
 }
 
 function easterEgg() {
