@@ -1,224 +1,162 @@
-const inputOpt = document.getElementById("inputOpt")
-
-const divQR = document.getElementById("divQR");
-
-let color = document.getElementById("color");
-let bg = document.getElementById("bg");
-
-let inText = document.getElementById("inText");
-let inLink = document.getElementById("inLink");
-let inSSID = document.getElementById("inSSID");
-let inPass = document.getElementById("inPass");
-let inMail = document.getElementById("inMail");
-
-const inputText = document.getElementById("inputText");
-const inputLink = document.getElementById("inputLink");
-const inputWifi = document.getElementById("inputWifi");
-const inputMail = document.getElementById("inputMail");
-
-const gen = document.getElementById("gen")
-const outQR = document.getElementById("outQR");
-
-const footer = document.getElementById("footer");
+// Element selectors
+const elements = {
+     inputOpt: document.getElementById("inputOpt"),
+     divQR: document.getElementById("divQR"),
+     color: document.getElementById("color"),
+     bg: document.getElementById("bg"),
+     inText: document.getElementById("inText"),
+     inLink: document.getElementById("inLink"),
+     inSSID: document.getElementById("inSSID"),
+     inPass: document.getElementById("inPass"),
+     inMail: document.getElementById("inMail"),
+     inputText: document.getElementById("inputText"),
+     inputLink: document.getElementById("inputLink"),
+     inputWifi: document.getElementById("inputWifi"),
+     inputMail: document.getElementById("inputMail"),
+     gen: document.getElementById("gen"),
+     outQR: document.getElementById("outQR"),
+     footer: document.getElementById("footer")
+};
 
 const hexRegex = /^([A-Fa-f0-9]{6})$/;
 
 const defaultOptions = {
      size: '1000x1000',
      bg: '262626',
-     color: 'f0f0f0',
+     color: 'f0f0f0'
 };
 
 const inputFields = [
-     inText,
-     inLink,
-     inSSID,
-     inPass,
-     inMail
+     elements.inText,
+     elements.inLink,
+     elements.inSSID,
+     elements.inPass,
+     elements.inMail
 ];
 
-inputOpt.addEventListener('change', () => {
+function resetInputFields() {
      inputFields.forEach(field => field.value = '');
-});
+}
 
-/* Event listener to each input field in the `inputFields` array. */
-inputFields.forEach(inputField => {
-     inputField.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter') {
-               genQR({
-                    bg: bg.value,
-                    color: color.value
-               });
-          }
-     });
-});
+function handleEnterKey(event) {
+     if (event.key === 'Enter') {
+          genQR({
+               bg: elements.bg.value,
+               color: elements.color.value
+          });
+     }
+}
 
-/* Event listener to the `inputOpt` element. */
-inputOpt.addEventListener('change', (event) => {
-     const selectedValue = event.target.value;
-     toggleInputVisibility(selectedValue);
-});
+function validateEmail() {
+     const email = elements.inMail.value;
+     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+     document.getElementById("submit").disabled = !isValid;
+     document.getElementById("download").disabled = !isValid;
+}
 
-/* Event listener to the `inMail` input field. */
-inMail.addEventListener('keyup', () => {
-     const submit = document.getElementById("submit");
-     const download = document.getElementById("download");
-     const email = inMail.value;
-     const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); // Basic email regex
-     submit.disabled = !isValid;
-     download.disabled = !isValid;
-});
-
-/**
- * The function `toggleInputVisibility` hides all input elements and shows the selected input based on
- * the provided value.
- */
 function toggleInputVisibility(selectedValue) {
      const inputElements = {
-          gen: gen,
-          qr: divQR,
-          text: inputText,
-          link: inputLink,
-          wifi: inputWifi,
-          mail: inputMail,
+          gen: elements.gen,
+          qr: elements.divQR,
+          text: elements.inputText,
+          link: elements.inputLink,
+          wifi: elements.inputWifi,
+          mail: elements.inputMail
      };
-     // Hide all inputs by default
-     for (const input of Object.values(inputElements)) {
-          input.classList.add('hidden');
-     }
-     // Show the selected input
+
+     Object.values(inputElements).forEach(input => input.classList.add('hidden'));
      if (inputElements[selectedValue]) {
           inputElements[selectedValue].classList.remove('hidden');
-          gen.classList.remove('hidden');
+          elements.gen.classList.remove('hidden');
      } else {
-          // Handle cases where selectedValue doesn't match any option (optional)
           console.warn("Invalid selected value. Please choose a valid input type.");
      }
 }
 
-/* The function `genQR` generates a QR code based on user input for different types. */
-function genQR(options = {}) {
-     outQR.src = "./src/asset/478.gif";
+function cleanHexColor(color) {
+     return color.startsWith("#") ? color.substring(1) : color;
+}
 
-     if ((options.color).startsWith("#", 0)){
-          options.color = (options.color).substring(1)
-     }
-     if ((options.bg).startsWith("#", 0)){
-          options.bg = (options.bg).substring(1)
-     }
+function genQR(options = {}) {
+     elements.outQR.src = "./src/asset/478.gif";
 
      const qrOpt = {
           size: options.size || defaultOptions.size,
-          bg: options.bg || defaultOptions.bg,
-          color: options.color || defaultOptions.color,
+          bg: cleanHexColor(options.bg || defaultOptions.bg),
+          color: cleanHexColor(options.color || defaultOptions.color)
      };
 
-     if(!hexRegex.test(qrOpt.color) || !hexRegex.test(qrOpt.bg)){
-          alert("Invalid hex code format! Please enter a valid hex code (e.g., #FFFFFF, FFFFFF).")
+     if (!hexRegex.test(qrOpt.color) || !hexRegex.test(qrOpt.bg)) {
+          alert("Invalid hex code format! Please enter a valid hex code (e.g., #FFFFFF, FFFFFF).");
           return;
-     } else if(hexRegex.test(qrOpt.color) || hexRegex.test(qrOpt.bg)){
-          switch (inputOpt.value) {
-               case 'text':
-                    if (inText.value !== '') {
-                         outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inText.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-                         divQR.classList.remove('hidden');
-                    }
-                    break;
-               case 'link':
-                    if (inLink.value !== '') {
-                         outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${inLink.value}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-                         divQR.classList.remove('hidden');
-                    }
-                    break;
-               case 'wifi':
-                    if (inSSID.value !== '' && inPass.value !== '') {
-                         outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=WIFI:S:${inSSID.value};T:WPA;P:${inPass.value};;&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-                         divQR.classList.remove('hidden');
-                    }
-                    break;
-               case 'mail':
-                    if (inMail.value !== '') {
-                         outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=mailto:${inMail.value}?subject=Let's%20connect!%26body=Hi!%20I%20would%20like%20connect%20with%20you!%0A%0AMade%20with%20https%3A%2F%2Fqr.kace.dev&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
-                         divQR.classList.remove('hidden');
-                    }
-                    break;
-               default:
-                    // Handle cases where inputOpt.value doesn't match any option (optional)
-                    console.warn("Invalid input option. Please choose a valid input type.");
-          }
+     }
+
+     const dataMap = {
+          text: elements.inText.value,
+          link: elements.inLink.value,
+          wifi: `WIFI:S:${elements.inSSID.value};T:WPA;P:${elements.inPass.value};;`,
+          mail: `mailto:${elements.inMail.value}?subject=Let's%20connect!%26body=Hi!%20I%20would%20like%20connect%20with%20you!%0A%0AMade%20with%20https%3A%2F%2Fqr.kace.dev`
+     };
+
+     const inputType = elements.inputOpt.value;
+     const data = dataMap[inputType];
+
+     if (data) {
+          elements.outQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrOpt.size}&data=${data}&bgcolor=${qrOpt.bg}&color=${qrOpt.color}`;
+          elements.divQR.classList.remove('hidden');
+     } else {
+          console.warn("Invalid input option. Please choose a valid input type.");
      }
 }
 
-/* The function `download` downloads a QR code image with customizable options based on user input. */
-function download(options = {}) {
-     const image = document.getElementById("outQR");
-     const imageUrl = image.src;
-
+function dlQR(options = {}) {
+     const imageUrl = elements.outQR.src;
      const qrOpt = {
           size: options.size || defaultOptions.size,
-          bg: options.bg || defaultOptions.bg,
-          color: options.color || defaultOptions.color,
+          bg: cleanHexColor(options.bg || defaultOptions.bg),
+          color: cleanHexColor(options.color || defaultOptions.color)
      };
 
-     if (options.color.startsWith("#", 0)){
-          options.color = options.color.substring(1)
-     } else if (options.bg.startsWith("#", 0)){
-          options.bg = options.bg.substring(1)
-     }
-
-     // Create a Blob object with the image data
      fetch(imageUrl)
           .then(response => response.blob())
           .then(blob => {
-               // Create a temporary URL for the downloaded image
                const url = window.URL.createObjectURL(blob);
-
-               // Create an anchor element (a link)
                const link = document.createElement("a");
-
-               // Set the href attribute to the temporary URL
                link.href = url;
 
-               // Set the download attribute to a desired filename
-               switch (inputOpt.value) {
-                    case 'text':
-                         if (inText.value !== '') {
-                              link.download = inText.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-                              link.click();
-                         }
-                         break;
-                    case 'link':
-                         if (inLink.value !== '') {
-                              link.download = inLink.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-                              link.click();
-                         }
-                         break;
-                    case 'wifi':
-                         if (inSSID.value !== '' || inPass.value !== '') {
-                              link.download = inSSID.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-                              link.click();
-                         }
-                         break;
-                    case 'mail':
-                         if (inMail.value !== '') {
-                              link.download = inMail.value + `_${qrOpt.color}_${qrOpt.bg}.png`;
-                              link.click();
-                         }
-                    default:
-                         console.warn('No generated QR code!')
-                         break;
+               const fileNameMap = {
+                    text: elements.inText.value,
+                    link: elements.inLink.value,
+                    wifi: elements.inSSID.value,
+                    mail: elements.inMail.value
+               };
+
+               const inputType = elements.inputOpt.value;
+               const fileName = fileNameMap[inputType];
+
+               if (fileName) {
+                    link.download = `${fileName}_${qrOpt.color}_${qrOpt.bg}.png`;
+                    link.click();
+               } else {
+                    console.warn('No generated QR code!');
                }
-               // Revoke the temporary URL after download
+
                window.URL.revokeObjectURL(url);
           })
           .catch(error => console.error(error));
 }
 
-function easterEgg(){
+function easterEgg() {
      const pill = document.getElementById("pill");
      const logo = document.getElementById("logo");
      logo.src = "./src/asset/favicon-p.png";
      pill.style.backgroundColor = "rgb(249 168 212 / var(--tw-bg-opacity))";
-     submit.style.backgroundColor = "rgb(249 168 212 / var(--tw-bg-opacity))";
-     footer.innerHTML = "Made with 🩷";
+     document.getElementById("submit").style.backgroundColor = "rgb(249 168 212 / var(--tw-bg-opacity))";
+     elements.footer.innerHTML = "Made with 🩷";
 }
+
+// Event listeners
+elements.inputOpt.addEventListener('change', resetInputFields);
+elements.inputOpt.addEventListener('change', (event) => toggleInputVisibility(event.target.value));
+elements.inMail.addEventListener('keyup', validateEmail);
+inputFields.forEach(inputField => inputField.addEventListener('keydown', handleEnterKey));
